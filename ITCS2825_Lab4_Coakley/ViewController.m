@@ -9,6 +9,9 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *txtAmount;
+@property (weak, nonatomic) IBOutlet UITextField *txtTipPct;
+@property (weak, nonatomic) IBOutlet UISlider *sldValue;
 
 @end
 
