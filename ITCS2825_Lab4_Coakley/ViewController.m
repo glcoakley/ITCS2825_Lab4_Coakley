@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *sldValue;
 @property (weak, nonatomic) IBOutlet UILabel *lblNumPeople;
 
+- (IBAction)GetSliderValue:(UISlider *)sender;
 - (IBAction)tipEditingEnded:(UITextField *)sender;
 - (IBAction)amountEditingEnded:(UITextField *)sender;
 
@@ -56,11 +57,33 @@ double dblAmount;
     [self.txtAmount endEditing:YES];
     [self.txtTipPct endEditing:YES];
 }
+- (IBAction)GetSliderValue:(UISlider *)sender
+{
+    intTipInPct = (int)self.sldValue.value;
+    self.txtTipPct.text = [NSString stringWithFormat:@"%i", intTipInPct];
+    
+}
+
 - (IBAction)tipEditingEnded:(UITextField *)sender
 {
+    intTipInPct =[self.txtTipPct.text intValue];
+    if ( intTipInPct < (int)self.sldValue.minimumValue )
+    {
+        intTipInPct = self.sldValue.minimumValue;
+    }
+    else if (intTipInPct > self.sldValue.maximumValue)
+    {
+        intTipInPct = (int)self.sldValue.maximumValue;
+    }
+    self.txtTipPct.text = [NSString stringWithFormat:@"%i", intTipInPct];
+    self.sldValue.value = (float)intTipInPct;
 }
 
 - (IBAction)amountEditingEnded:(UITextField *)sender
 {
+    double number = [self.txtAmount.text doubleValue];
+    double testTip = number*.15;
+    self.txtTipPct.text = [NSString stringWithFormat:@"%.2f", testTip];
+    
 }
 @end
