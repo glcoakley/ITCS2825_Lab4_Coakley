@@ -99,16 +99,18 @@ double dblAmount;
 {
     double number = [self.txtAmount.text doubleValue];
     dblAmount = number;
-    
 }
 
 - (IBAction)btnCalculateTip:(UIButton *)sender
 {
     double tipPct = (double)intTipInPct;
-    double tipAmount = dblAmount * tipPct;
+    double tipAmount = (dblAmount * tipPct)/100.0;
     int intTipAmount = (int)(tipAmount*100.0 +0.5);
     tipAmount = ((double)intTipAmount)/100.0;
     double totalAmount = dblAmount + tipAmount;
-    self.lblTipAmount.text = [NSString stringWithFormat:@"%.2f", tipAmount;
+    
+    self.lblTipAmount.text = [NSString stringWithFormat:@"%.2f", tipAmount];
+    self.lblTotalBillAmount.text = [NSString stringWithFormat:@"%.2f", totalAmount];
+    
 }
 @end
