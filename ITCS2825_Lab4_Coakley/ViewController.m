@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblTotalAmount;
 @property (weak, nonatomic) IBOutlet UILabel *lblTotalBillAmount;
 @property (weak, nonatomic) IBOutlet UILabel *lblNumberOfPeople;
+@property (weak, nonatomic) IBOutlet UILabel *lblTipPerPerson;
+@property (weak, nonatomic) IBOutlet UILabel *lblPerPerson;
 
 - (IBAction)updatePeopleCount:(UIStepper *)sender;
 - (IBAction)GetSliderValue:(UISlider *)sender;
@@ -111,6 +113,14 @@ double dblAmount;
     
     self.lblTipAmount.text = [NSString stringWithFormat:@"%.2f", tipAmount];
     self.lblTotalBillAmount.text = [NSString stringWithFormat:@"%.2f", totalAmount];
+    
+    double perPerson = totalAmount/numberOfPeople;
+    double tipPerPerson = tipAmount/numberOfPeople;
+    
+    self.lblPerPerson.text = [NSString stringWithFormat:@"%.2f", perPerson];
+    self.lblTipPerPerson.text = [NSString stringWithFormat:@"%.2f", tipPerPerson];
+    
+    
     
 }
 @end
