@@ -14,15 +14,24 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtTipPct;
 @property (weak, nonatomic) IBOutlet UISlider *sldValue;
 @property (weak, nonatomic) IBOutlet UILabel *lblNumPeople;
+@property (weak, nonatomic) IBOutlet UIStepper *stpPeopleStepper;
 
+@property (weak, nonatomic) IBOutlet UILabel *lblTipAmount;
+@property (weak, nonatomic) IBOutlet UILabel *lblTotalAmount;
+@property (weak, nonatomic) IBOutlet UILabel *lblTotalBillAmount;
+@property (weak, nonatomic) IBOutlet UILabel *lblNumberOfPeople;
+
+- (IBAction)updatePeopleCount:(UIStepper *)sender;
 - (IBAction)GetSliderValue:(UISlider *)sender;
 - (IBAction)tipEditingEnded:(UITextField *)sender;
 - (IBAction)amountEditingEnded:(UITextField *)sender;
+- (IBAction)btnCalculateTip:(UIButton *)sender;
 
 
 @end
 
 int intTipInPct;
+int numberOfPeople;
 double dblAmount;
 
 
@@ -33,7 +42,8 @@ double dblAmount;
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    
+    numberOfPeople = (int)self.stpPeopleStepper.minimumValue;
+    self.lblNumberOfPeople.text = [NSString stringWithFormat:@"%i", numberOfPeople];
     
 }
 
@@ -57,6 +67,12 @@ double dblAmount;
     [self.txtAmount endEditing:YES];
     [self.txtTipPct endEditing:YES];
 }
+- (IBAction)updatePeopleCount:(UIStepper *)sender
+{
+    numberOfPeople = (int)self.stpPeopleStepper.value;
+    self.lblNumberOfPeople.text = [NSString stringWithFormat:@"%i", numberOfPeople];
+}
+
 - (IBAction)GetSliderValue:(UISlider *)sender
 {
     intTipInPct = (int)self.sldValue.value;
@@ -82,8 +98,17 @@ double dblAmount;
 - (IBAction)amountEditingEnded:(UITextField *)sender
 {
     double number = [self.txtAmount.text doubleValue];
-    double testTip = number*.15;
-    self.txtTipPct.text = [NSString stringWithFormat:@"%.2f", testTip];
+    dblAmount = number;
     
+}
+
+- (IBAction)btnCalculateTip:(UIButton *)sender
+{
+    double tipPct = (double)intTipInPct;
+    double tipAmount = dblAmount * tipPct;
+    int intTipAmount = (int)(tipAmount*100.0 +0.5);
+    tipAmount = ((double)intTipAmount)/100.0;
+    double totalAmount = dblAmount + tipAmount;
+    self.lblTipAmount.text = [NSString stringWithFormat:@"%.2f", tipAmount;
 }
 @end
